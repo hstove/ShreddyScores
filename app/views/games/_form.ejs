@@ -1,0 +1,32 @@
+<%- errorMessagesFor(game) %>
+<div class="control-group">
+   <%- form.label("title", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- form.input("title") %>
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("away", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- form.input("away") %>
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("home", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- form.input("home") %>
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("home score", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- form.input("home_score", {type: 'Number'}) %>
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("away_score", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- form.input("away_score", {type: 'Number'}) %>
+   </div>
+</div>
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><%= title %></title>
+        <%- stylesheet_link_tag('bootstrap', 'style', 'bootstrap-responsive') %>
+        <%- javascript_include_tag('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'bootstrap', 'rails', 'application') %>
+        <%- csrf_meta_tag() %>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+          var socket = io.connect('http://localhost:3000');
+          
+          socket.on('connect', function(){
+          		// call the server-side function 'adduser' and send one parameter (value of prompt)
+          		//socket.emit('update', {hello: 'world'});
+          	});
+          
+          socket.on('news', function (data) {
+            console.log(data);
+            $('#log').append(JSON.stringify(data));
+            //console.log('news')
+            //socket.emit('update', { my: 'data' });
+          });
+          
+          socket.emit('update', {hello: 'world'});
+          
+          $(document).ready(function(){
+            // $('.btn').click(function(){
+            //               socket.emit('update', {action: 'button clicked'});
+            //               console.log('hello');
+            //             });
+          });
+        </script>
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="#">Shreddy Scores</a>
+                </div>
+            </div>
+        </div>
+            
+        <div class="container">
+            <% var flash = request.flash('info').pop(); if (flash) { %>
+                <div class="alert alert-info">
+                    <a class="close" data-dismiss="alert">×</a>
+                    <%- flash %>
+                </div>
+            <% } %>
+            
+            <% flash = request.flash('error').pop(); if (flash) { %>
+                <div class="alert alert-error">
+                    <a class="close" data-dismiss="alert">×</a>
+                    <%- flash %>
+                </div>
+            <% }; %>
+            
+            <%- body %>
+            
+            <hr />
+            <footer>
+                <p>&copy; Company 2012</p>
+            </footer>
+        </div>
+    </body>
+</html>

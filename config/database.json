@@ -1,0 +1,10 @@
+{ "development":
+  { "driver":   "mongoose",
+    "url"   :   "mongodb://hstove:mngcom1225@staff.mongohq.com:10050/ShreddyScores",
+    "port"  :   27017
+  }
+, "test":
+  { "driver":   "memory"
+  }
+}
+

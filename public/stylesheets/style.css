@@ -1,0 +1,36 @@
+#scorebox {
+  height: 100px;
+  text-align: center;
+  margin-bottom: 20px;
+} #scorebox .teambox, #scorebox #infobox {
+  height: 100%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ccc;
+  margin-left: 0px;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.13);
+} .teambox .team-score {
+  position: relative;
+  top: 7px;
+  font-size: 75px;
+  text-shadow: 1px 1px 3px white;
+  font-weight: 700;
+} .teambox .btn {
+  position: absolute;
+  top: 35px;
+  z-index: 100;
+} .teambox .team-title, .game-title {
+  font-size: 16px;
+  text-shadow: 1px 1px 3px white;
+} .teambox .btn[data-up=false] {
+  left: 4px;
+} .teambox .btn[data-up=true] {
+  left: 130px;
+} .teambox#home {
+  border-width: 1px 0 1px 1px !important;
+  border-radius: 5px 0 0 5px;
+} .teambox#away {
+  border-width: 1px 1px 1px 0 !important;
+  border-radius: 0 5px 5px 0;
+}

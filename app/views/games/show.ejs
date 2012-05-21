@@ -1,0 +1,75 @@
+<div class="page-header">
+    <h1>Details of game</h1>
+</div>
+
+<script>
+String.prototype.unescapeHtml = function () {
+    var temp = document.createElement("div");
+    temp.innerHTML = this;
+    var result = temp.childNodes[0].nodeValue;
+    temp.removeChild(temp.firstChild);
+    return result;
+}
+var game = JSON.parse('<%= gameString %>'.unescapeHtml());
+
+socket.on('game_update', function(game2){
+  $('#log').append(JSON.stringify(game2));
+  if (game.id === game2.id){
+    game = game2;
+    updateViewForGame();
+  }
+})
+
+function updateViewForGame(){
+  $('#home .team-score').html(game.home_score);
+  $('#away .team-score').html(game.away_score);
+}
+
+console.log(game);
+
+$(document).ready(function(){
+  $('.btn').click(function(){
+    console.log($(this).attr('data-team'));
+    var team = $(this).attr('data-team') + '_score';
+    $(this).attr('data-up') === 'true' ? game[team] += 1 : game[team] -= 1;
+    socket.emit('game_update', game);
+  })
+})
+
+</script>
+
+<div class='row'>
+  <div class='span8 offset2' id='scorebox' data-id="<%= game.id %>">
+    <div class='span2 teambox' id='home'>
+      <span class='team-title'><%= game.home%></span>
+      </br>
+      </br>
+      <span class='team-score'><%= game.home_score %></span>
+      <div class='btn' data-team=home data-up=true><i class='icon-plus'></i></div>
+      <div class='btn' data-team=home data-up=false><i class='icon-minus'></i></div>
+    </div>
+    <div class='span4' id='infobox'>
+      <span class='game-title'><%= game.title %></span>
+    </div>
+    <div class='span2 teambox' id='away'>
+      <span class='team-title'><%= game.away%></span>
+      </br>
+      </br>
+      <span class='team-score'><%= game.away_score%></span>
+      <div class='btn' data-team=away data-up=true><i class='icon-plus'></i></div>
+      <div class='btn' data-team=away data-up=false><i class='icon-minus'></i></div>
+    </div>
+  </div>
+</div>
+
+<div class="well">
+    <%- link_to('<i class="icon-edit icon-white"></i> Edit', path_to.edit_game(game), {class: 'btn btn-primary'}) %>
+    <%- link_to('<i class="icon-remove icon-white"></i> Delete', path_to.game(game), {class: 'btn btn-danger', method: 'delete', remote: true, jsonp: '(function (u) { location.href = u; })'}) %>
+    or
+    <%- link_to('Back to index', path_to.games()) %>
+</div>
+
+
+</div>
+<div id='log'>
+  </div>

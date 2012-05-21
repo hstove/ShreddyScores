@@ -1,0 +1,11 @@
+<div class="page-header">
+    <h1>New game</h1>
+</div>
+
+<% form_for(game, {action: path_to.games(), method: 'POST', id: "game_form", class: 'form-horizontal'}, function (form) { %>
+    <%- partial('games/form.ejs', {locals: {form: form, game: game}}) %>
+    <div class="form-actions">
+        <%- form.submit('<i class="icon-ok icon-white"></i> Create game', {class: 'btn btn-primary'}) %> or
+        <%- link_to('Cancel', path_to.games(), {class: 'btn'}) %>
+    </div>
+<% });%>
